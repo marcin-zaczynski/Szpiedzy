@@ -1,33 +1,61 @@
 import sys
 import json
 
+try:
+    with open('osoby.json','r') as file:
+        osoby = json.load(file)
 
-with open('szpiedzy.json','r') as file:
-    osoby = json.load(file)
+except FileNotFoundError:
+    osoby = {}
+    with open('osoby.json', 'w') as file:
+        json.dump(osoby, file)
 
+try:
+    with open('kontakty.json','r') as file:
+        kontakty = json.load(file)
 
-with open('kontakty.json','r') as file:
-    kontakty = json.load(file)
+except FileNotFoundError:
+    kontakty = {}
+    with open('kontakty.json','w') as file:
+        json.dump(kontakty, file)
+
 
 def dodajOsobe(imie, nazwisko):
     a = len(osoby)+1
     osoby[a] = imie, nazwisko
-    with open('szpiedzy.json', 'w') as file:
+    with open('osoby.json', 'w') as file:
         json.dump(osoby, file)
+
 
 def powiazania(nr1, nr2):
     a = int(nr1)
     b = int(nr2)
-    kontakty[a] = b
+    print()
+    try:
+        kontakty[a] = kontakty[a],b
+    except KeyError:
+        kontakty[a] = b
+
+    try:
+        kontakty[b] = kontakty[b], a
+    except KeyError:
+        kontakty[b] = a
+
     with open('kontakty.json','w') as file:
         json.dump(kontakty, file)
 
 
 def powiazaneKontakty(kontakt):
-    for i in kontakty.keys():
-        print(kontakty[kontakt])
+    c = kontakty[kontakt]
+    print('Powiązania dla kontaktu:', osoby[kontakt])
+    try:
+        for i in c:
+            i = str(i)
+            print(osoby[i])
+    except TypeError:
+        b = str(c)
+        print(osoby[b])
 
-        #print('nr', kontakt,'jest powiązany z', kontakty[kontakt])
 
 def logowanie():
     while True:
@@ -38,7 +66,6 @@ def logowanie():
         if podlogin == login and podhaslo == haslo:
             print('Dostęp uznany')
             break
-
         else:
             print('Zły login lub hasło, spróbuj ponownie')
 
@@ -49,7 +76,7 @@ def wykonuj():
             1 - wyświetl sieć kontaktów
             2 - dodaj osobę
             3 - dodaj powiązanie pomiędzy kontaktami
-            4 - wyświetl powiązania
+            4 - wyświetl powiązane osoby z kontaktem
             9 - zamknij \n
         """)
         x = input('Podaj nr:')
@@ -73,9 +100,8 @@ def wykonuj():
             continue
 
         elif x == '4':
-            print(kontakty)
-            continue
-
+            a = input('Podaj nr osoby do wyświetlenia kontaktów')
+            powiazaneKontakty(a)
 
         elif x == '9':
             sys.exit()
