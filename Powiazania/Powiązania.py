@@ -46,15 +46,27 @@ def powiazania(nr1, nr2):
 
 
 def powiazaneKontakty(kontakt):
-    c = kontakty[kontakt]
-    print('Powiązania dla kontaktu:', osoby[kontakt])
     try:
-        for i in c:
-            i = str(i)
-            print(osoby[i])
-    except TypeError:
-        b = str(c)
-        print(osoby[b])
+        c = kontakty[kontakt]
+        print('Powiązania dla kontaktu:', osoby[kontakt])
+        try:
+            for i in c:
+                i = str(i)
+                print(osoby[i])
+        except TypeError:
+            b = str(c)
+            print(osoby[b])
+    except KeyError:
+        print('Brak powiązań, lub źle wpisany numer')
+
+
+def usunOsobe(nrOsoby):
+    osoby[nrOsoby] = 'osoba usunięta'
+    with open('osoby.json', 'w') as file:
+        json.dump(osoby, file)
+    kontakty.pop(nrOsoby)
+    with open('kontakty.json','w') as file:
+        json.dump(kontakty, file)
 
 
 def logowanie():
@@ -77,6 +89,7 @@ def wykonuj():
             2 - dodaj osobę
             3 - dodaj powiązanie pomiędzy kontaktami
             4 - wyświetl powiązane osoby z kontaktem
+            5 - usuń osobę
             9 - zamknij \n
         """)
         x = input('Podaj nr:')
@@ -103,6 +116,10 @@ def wykonuj():
             a = input('Podaj nr osoby do wyświetlenia kontaktów')
             powiazaneKontakty(a)
 
+        elif x == '5':
+            a = input('Podaj nr osoby do usunięcia')
+            usunOsobe(a)
+
         elif x == '9':
             sys.exit()
 
@@ -111,5 +128,10 @@ def wykonuj():
             continue
 
 
-logowanie()
-wykonuj()
+#logowanie()
+#wykonuj()
+slownik = {"1": [9, 8], "9": 1, "8": 1, "2": 3, "3": 2, "4": [6, 5], "6": 4, "5": [7, 4], "7": 5, "10": 12, "11": 10}
+a=0
+for i in slownik.items():
+    if i[a] == '9':
+        print(i)
