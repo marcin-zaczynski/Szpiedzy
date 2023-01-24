@@ -71,11 +71,11 @@ def usunOsobe(nrOsoby):
 
 def logowanie():
     while True:
-        login = 'login'
-        haslo = 'haslo'
+        __login = 'login'
+        __haslo = 'haslo'
         podlogin = input('Podaj login:')
         podhaslo = input('Podaj hasło:')
-        if podlogin == login and podhaslo == haslo:
+        if podlogin == __login and podhaslo == __haslo:
             print('Dostęp uznany')
             break
         else:
@@ -128,10 +128,5 @@ def wykonuj():
             continue
 
 
-#logowanie()
-#wykonuj()
-slownik = {"1": [9, 8], "9": 1, "8": 1, "2": 3, "3": 2, "4": [6, 5], "6": 4, "5": [7, 4], "7": 5, "10": 12, "11": 10}
-a=0
-for i in slownik.items():
-    if i[a] == '9':
-        print(i)
+logowanie()
+wykonuj()
