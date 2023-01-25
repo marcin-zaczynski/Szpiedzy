@@ -52,10 +52,16 @@ def powiazaneKontakty(kontakt):
         try:
             for i in c:
                 i = str(i)
-                print(osoby[i])
+                if osoby[i] == 'osoba usunięta':
+                    print()
+                else:
+                    print(osoby[i])
         except TypeError:
             b = str(c)
-            print(osoby[b])
+            if osoby[b] == 'osoba usunięta':
+                print()
+            else:
+                print(osoby[b])
     except KeyError:
         print('Brak powiązań, lub źle wpisany numer')
 
@@ -128,5 +134,5 @@ def wykonuj():
             continue
 
 
-logowanie()
+#logowanie()
 wykonuj()
