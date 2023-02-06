@@ -32,30 +32,35 @@ def listaOsob():
 
     oknoW.mainloop()
 
+def zamknijOkno(okno):
+    okno.destroy()
+
 def koniec():
     sys.exit()
 
 def dodajOsobe(x,y):
-    #imiee = x.get()
-    #nazw = y.get()
-    print(x, y)
-    #a = len(osoby) + 1
-    #osoby[a] = imiee, nazw
-    #with open('osoby.json', 'w') as file:
-    #    json.dump(osoby, file)
+    name = x.get()
+    surname = y.get()
+    print('wpisano:', name, surname)
+    a = len(osoby) + 1
+    osoby[a] = name, surname
+    with open('osoby.json', 'w') as file:
+        json.dump(osoby, file)
 
 def oknoDodajOsobe():
-    okno = tk.Tk()
-    tk.Label(okno,)
-    imie = tk.StringVar()
-    nazwisko = tk.StringVar()
-    tk.Label(okno, text='Imię').grid(row=0, column=0)
-    tk.Entry(okno, textvariable=imie).grid(row=0, column=1)
-    tk.Label(okno, text='Nazwisko').grid(row=1, column=0)
-    tk.Entry(okno, textvariable=nazwisko).grid(row=1, column=1)
-    tk.Button(okno, text="Zatwierdz", command=lambda a=imie.get(),b=nazwisko.get(),eff=None:dodajOsobe(a, b)).grid(row=2, column=0, padx=2, pady=2)
-    #tk.Button(okno, text="Zrezygnuj", command=koniec).grid(row=2, column=1, padx=2, pady=2)
-    okno.mainloop()
+    oknoD = tk.Tk()
+    tk.Label(oknoD,)
+    oknoD.title('Dodaj osobę')
+    oknoD.geometry('300x100')
+    imie = tk.StringVar(oknoD)
+    nazwisko = tk.StringVar(oknoD)
+    tk.Label(oknoD, text='Imię').grid(row=0, column=0)
+    tk.Entry(oknoD, textvariable=imie).grid(row=0, column=1)
+    tk.Label(oknoD, text='Nazwisko').grid(row=1, column=0)
+    tk.Entry(oknoD, textvariable=nazwisko).grid(row=1, column=1)
+    tk.Button(oknoD, text="Zatwierdz", command=lambda: dodajOsobe(imie, nazwisko)).grid(row=2, column=0, padx=2, pady=2)
+    tk.Button(oknoD, text="Zrezygnuj", command=lambda: zamknijOkno(oknoD)).grid(row=2, column=1, padx=2, pady=2)
+    oknoD.mainloop()
 
 
 def wyswietlanie():
@@ -71,12 +76,12 @@ def wyswietlanie():
     tk.Label(okno1, text="5 - usuń osobę").grid(row=5, column=0, padx=2, pady=2)
     tk.Label(okno1, text="9 - zamknij").grid(row=6, column=0, padx=2, pady=2)
 
-    ok = tk.Button(okno1, text="Zatwierdz", command=listaOsob).grid(row=1, column=1, padx=2, pady=2)
-    ok1 = tk.Button(okno1, text="Zatwierdz", command=oknoDodajOsobe ).grid(row=2, column=1, padx=2, pady=2)
-    ok2 = tk.Button(okno1, text="Zatwierdz", ).grid(row=3, column=1, padx=2, pady=2)
-    ok3 = tk.Button(okno1, text="Zatwierdz", ).grid(row=4, column=1, padx=2, pady=2)
-    ok4 = tk.Button(okno1, text="Zatwierdz", ).grid(row=5, column=1, padx=2, pady=2)
-    ok5 = tk.Button(okno1, text="Zatwierdz", ).grid(row=6, column=1, padx=2, pady=2)
+    tk.Button(okno1, text="Zatwierdz", command=listaOsob).grid(row=1, column=1, padx=2, pady=2)
+    tk.Button(okno1, text="Zatwierdz", command=oknoDodajOsobe ).grid(row=2, column=1, padx=2, pady=2)
+    tk.Button(okno1, text="Zatwierdz", ).grid(row=3, column=1, padx=2, pady=2)
+    tk.Button(okno1, text="Zatwierdz", ).grid(row=4, column=1, padx=2, pady=2)
+    tk.Button(okno1, text="Zatwierdz", ).grid(row=5, column=1, padx=2, pady=2)
+    tk.Button(okno1, text="Zatwierdz", ).grid(row=6, column=1, padx=2, pady=2)
 
     okno1.mainloop()
 def logowanie():
@@ -84,8 +89,8 @@ def logowanie():
     __haslo = 'haslo'
     login = log.get()
     haslo = has.get()
-    podlogin = login #input('Podaj login:')
-    podhaslo = haslo  #input('Podaj hasło:')
+    podlogin = login
+    podhaslo = haslo
 
     if podlogin == __login and podhaslo == __haslo:
         okno.destroy()
@@ -96,8 +101,8 @@ def logowanie():
         okno_blad.geometry('100x100')
 
         tk.Label(okno_blad, text="Zły login lub hasło").grid(row=0, column=0, padx=2, pady=2)
-        ok = tk.Button(okno_blad, text="spróbuj ponownie",command=okno_blad.destroy ).grid(row=2, column=0, padx=2, pady=2)
-        k = tk.Button(okno_blad, text="Zakończ program",command=koniec ).grid(row=3, column=0, padx=2, pady=2)
+        tk.Button(okno_blad, text="spróbuj ponownie",command=okno_blad.destroy ).grid(row=2, column=0, padx=2, pady=2)
+        tk.Button(okno_blad, text="Zakończ program",command=koniec ).grid(row=3, column=0, padx=2, pady=2)
         okno_blad.mainloop()
         okno.destroy()
 
@@ -109,10 +114,10 @@ while True:
     log = tk.StringVar()
     has = tk.StringVar()
     tk.Label(okno, text="Login").grid(row=0, column=0, padx=2, pady=2)
-    wpis_log = tk.Entry(okno,textvariable=log).grid(row=0, column=1)
+    tk.Entry(okno,textvariable=log).grid(row=0, column=1)
 
     tk.Label(okno, text="Haslo").grid(row=1, column=0, padx=2, pady=2)
-    wpis_haslo = tk.Entry(okno, textvariable=has).grid(row=1, column=1)
+    tk.Entry(okno, textvariable=has).grid(row=1, column=1)
 
     tk.Button(okno, text="Zatwierdz", command=logowanie).grid(row=2, column=0, padx=2, pady=2)
     tk.Button(okno, text="Zrezygnuj", command=koniec).grid(row=2, column=1, padx=2, pady=2)
