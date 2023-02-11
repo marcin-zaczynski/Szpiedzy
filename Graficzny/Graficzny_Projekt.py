@@ -20,14 +20,14 @@ except FileNotFoundError:
     with open('kontakty.json','w') as file:
         json.dump(kontakty, file)
 
-def listaOsob(okno):
 
+def listaOsob(okno):
     a = 1
     b = 1
     for i, y in osoby.items():
-        tk.Label(okno, activeforeground='yellow', text=str(i) + ':' + str(y) + '\n').grid(row=b, column=3)
+        tk.Label(okno,bg='yellow',justify='right',foreground='#FF7D7D', activeforeground='yellow', text=str(i) + ':' + str(y) + '\n').grid(row=b, column=3)
         a += 1
-        b+=1
+        b += 1
 
 def zamknijOkno(okno):
     okno.destroy()
@@ -50,7 +50,7 @@ def powiazaneKontakty(strVar, oknoG):
     kontakt = strVar.get()
     tk.Button(oknoG, text="Zamknij  ",command= lambda:zamknijOkno(oknoG)).grid(row=2, column=0, padx=2, pady=2)
     try:
-        c = kontakty[kontakt]
+        c = kontakty[str(kontakt)]
         tk.Label(oknoG, text='Powiązania dla kontaktu:\n'+ str(osoby[kontakt])+':').grid(row=2, column=1)
         print('Powiązania dla kontaktu:', osoby[kontakt])
         try:
@@ -61,7 +61,7 @@ def powiazaneKontakty(strVar, oknoG):
                     print()
                 else:
                     tk.Label(oknoG, text=osoby[i]).grid(row=a, column=0)
-                    print(osoby[i])
+                    #print(osoby[i])
                     a+=1
         except TypeError:
             b = str(c)
@@ -69,7 +69,7 @@ def powiazaneKontakty(strVar, oknoG):
                 print()
             else:
                 tk.Label(oknoG, text=osoby[b]).grid(row=3, column=0)
-                print(osoby[b])
+                #print(osoby[b])
     except KeyError:
         tk.Label(oknoG, text='Brak powiązań,\n lub źle wpisany numer').grid(row=3, column=0)
         print('Brak powiązań, lub źle wpisany numer')
@@ -93,18 +93,19 @@ def oknopowiazania():
 def powiazania(pierwszy, drugi, okno):
     nr1 = pierwszy.get()
     nr2 = drugi.get()
-    a = int(nr1)
-    b = int(nr2)
-    print('pow', a,'z',b)
-    try:
-        kontakty[a] = kontakty[a],b
-    except KeyError:
-        kontakty[a] = b
+    a = str(nr1)
+    b = str(nr2)
 
-    try:
-        kontakty[b] = kontakty[b], a
-    except KeyError:
+
+    if kontakty.get(a) == None:
+            kontakty[a] = b
+    else:
+        kontakty[a] = kontakty.get(a), b
+
+    if kontakty.get(b)  == None:
         kontakty[b] = a
+    else:
+        kontakty[b] = kontakty.get(b), a
 
     with open('kontakty.json','w') as file:
         json.dump(kontakty, file)
@@ -151,7 +152,7 @@ def oknoUsun():
 def usunOsobe(nrStrVar, okno):
     okno.destroy()
     nrOsoby = nrStrVar.get()
-    osoby.pop(str(nrOsoby))
+    osoby[nrOsoby]= 'None'
     with open('osoby.json', 'w') as file:
         json.dump(osoby, file)
     kontakty.pop(nrOsoby)
@@ -161,22 +162,26 @@ def usunOsobe(nrStrVar, okno):
 def wyswietlanie():
 
     okno1 = tk.Tk()
-    okno1.title = 'Wyświetlanie'
+    okno1.title('Program',)
     okno1.geometry('480x480')
+    okno1.config(bg='yellow')
+    tekstowe= tk.Text(okno1,width = 29, height = 50)
+    tekstowe.place(x=1,y=180)
+    tekstowe.insert(tk.END,'⠀⠀⠀⠀⣠⡤⠒⠂⢀⣈⣉⠉⠑⠒⠢⠤⡀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⡰⠉⢁⣰⣶⣾⣿⣿⣿⣿⣷⣶⣼⣶⣼⣆⠀⠀⠀⠀⠀⠀\n⠀⢠⣁⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⡀⠀⠀⠀\n⠀⣿#byFCA⠛⠉⠉⠁⠀⠈⠉⠉⠙⠻⣿⣿⣷⣿⡄⠀⠀\n⠀⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣷⣿⢱⠀⠀\n⠀⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣟⠂⡇⠀\n⠀⣿⣿⠀⢀⣤⣶⣶⣦⠀⠀⢠⣴⣿⣷⣶⡄⠀⠘⢿⣿⣧⡇⠀\n⢸⣿⡏⠀⠠⡶⢽⡶⠿⠃⠀⠘⢿⠿⠶⠟⠿⠂⠀⢸⣿⣿⡿⡀\n⡜⢿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠟⠋⠀⡇\n⢱⠈⠙⠀⠀⠀⠀⣠⢠⣤⣤⣤⣤⣤⡤⡀⠀⠀⠀⠀⠀⣤⠀⢰\n⢸⠀⢢⡄⠀⠀⠴⣧⣴⡶⢿⢿⣿⣿⣿⣾⣦⠀⡀⢠⣆⠀⠙⠸\n⢠⠀⠈⣷⣀⡀⠨⣿⢿⢋⣉⣉⣉⣙⡿⣿⡿⣠⣟⣾⡿⣤⡠\n⠘⠦⠤⣿⣿⣷⣼⣿⠀⠉⠉⠉⠉⠉⠀⢸⣿⣿⣿⣿⣿⠁⠀⠀\n⠀⠀⠀⢸⢻⣿⣿⣿⣶⡀⠾⣦⣷⠔⢧⣾⣿⣿⣿⣿⢸⠀⠀⠀\n⠀⠀⢀⣾⠀⠉⣿⣿⣿⣧⣦⣻⣳⣶⣿⣿⣿⣾⣿⡿⢸⠀⠀⠀\n⠀⢀⣿⣿⡀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⢸⣧⠀⠀\n⠀⢸⣿⣿⣇⠀⠈⠿⢿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠀⠀⣿⣿⡆⠀\n⠀⠈⢿⣿⣿⡄⠀⠀⠀⠉⠛⠛⠛⠛⠉⠁⠀⠀⠀⠀⣿⣿⣇⠀\n⠀⠀⢸⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⠀\n⠀⠀⠀⣿⣿⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⡇⠀\n⠀⠀⠀⠘⢿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⠟⠁⠀\n⠀⠀⠀⠀⠀⠙⠿⢿⣿⣿⣶⣄⡀⠀⠀⠀⠀⣰⣿⣿⠋⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣦⠀⠀⠀⣿⣿⠃⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣿⣷⣤⣺⣿⡇⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⣿⠿⠋⠀⠀⠀⠀⠀⠀\n\n🐐        🐐')
 
-    tk.Label(okno1, text="1 - wyświetl sieć kontaktów").grid(row=1, column=0, padx=2, pady=2)
-    tk.Label(okno1, text="2 - dodaj osobę").grid(row=2, column=0, padx=2, pady=2)
-    tk.Label(okno1, text="3 - dodaj powiązanie pomiędzy kontaktami").grid(row=3, column=0, padx=2, pady=2)
-    tk.Label(okno1, text="4 - wyświetl powiązane osoby z kontaktem").grid(row=4, column=0, padx=2, pady=2)
-    tk.Label(okno1, text="5 - usuń osobę").grid(row=5, column=0, padx=2, pady=2)
-    tk.Label(okno1, text="9 - zamknij").grid(row=6, column=0, padx=2, pady=2)
+    tk.Label(okno1, relief='ridge', bg='#44A7FF', text="1 - wyświetl sieć kontaktów                           ").grid(row=1, column=0, padx=2, pady=2)
+    tk.Label(okno1, relief='ridge', bg='#44A7FF', text="2 - dodaj osobę                                               ").grid(row=2, column=0, padx=2, pady=2)
+    tk.Label(okno1, relief='ridge', bg='#44A7FF', text="3 - dodaj powiązanie pomiędzy kontaktami").grid(row=3, column=0, padx=2, pady=2)
+    tk.Label(okno1, relief='ridge', bg='#44A7FF', text="4 - wyświetl powiązane osoby z kontaktem ").grid(row=4, column=0, padx=2, pady=2)
+    tk.Label(okno1, relief='ridge', bg='#44A7FF', text="5 - usuń osobę                                                  ").grid(row=5, column=0, padx=2, pady=2)
+    tk.Label(okno1, relief='ridge', bg='#44A7FF', text="9 - zamknij                                                        ").grid(row=6, column=0, padx=2, pady=2)
 
-    tk.Button(okno1, text="Zatwierdz", command=lambda: listaOsob(okno1)).grid(row=1, column=1, padx=2, pady=2)
-    tk.Button(okno1, text="Zatwierdz", command=oknoDodajOsobe ).grid(row=2, column=1, padx=2, pady=2)
-    tk.Button(okno1, text="Zatwierdz", command=oknopowiazania ).grid(row=3, column=1, padx=2, pady=2)
-    tk.Button(okno1, text="Zatwierdz", command=oknoWyswietlPowiazania ).grid(row=4, column=1, padx=2, pady=2)
-    tk.Button(okno1, text="Zatwierdz", command=oknoUsun ).grid(row=5, column=1, padx=2, pady=2)
-    tk.Button(okno1, text="Zatwierdz",command=koniec ).grid(row=6, column=1, padx=2, pady=2)
+    tk.Button(okno1,bg='#99FF29',activebackground ='purple', text="Zatwierdz", command=lambda: listaOsob(okno1)).grid(row=1, column=1, padx=2, pady=2)
+    tk.Button(okno1,bg='#99FF29',activebackground ='purple', text="Zatwierdz", command=oknoDodajOsobe ).grid(row=2, column=1, padx=2, pady=2)
+    tk.Button(okno1,bg='#99FF29',activebackground ='purple', text="Zatwierdz", command=oknopowiazania ).grid(row=3, column=1, padx=2, pady=2)
+    tk.Button(okno1,bg='#99FF29',activebackground ='purple', text="Zatwierdz", command=oknoWyswietlPowiazania ).grid(row=4, column=1, padx=2, pady=2)
+    tk.Button(okno1,bg='#99FF29',activebackground ='purple', text="Zatwierdz", command=oknoUsun ).grid(row=5, column=1, padx=2, pady=2)
+    tk.Button(okno1,bg='red',activebackground ='purple', text="Zamknij",command=koniec,width = 8, height = 1 ).grid(row=6, column=1, padx=2, pady=2)
 
     okno1.mainloop()
 def logowanie(logi, hasl,okno):
@@ -216,4 +221,4 @@ def poczatek():
     tk.Button(okno, text="Zatwierdz", command=lambda: logowanie(log, has, okno)).grid(row=2, column=0, padx=2, pady=2)
     tk.Button(okno, text="Zrezygnuj", command=koniec).grid(row=2, column=1, padx=2, pady=2)
     okno.mainloop()
-poczatek()
+wyswietlanie()
