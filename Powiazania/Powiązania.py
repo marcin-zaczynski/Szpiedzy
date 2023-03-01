@@ -134,5 +134,5 @@ def wykonuj():
             continue
 
 
-#logowanie()
+logowanie()
 wykonuj()
