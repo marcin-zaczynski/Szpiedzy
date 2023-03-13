@@ -8,7 +8,7 @@ class zwierze:
         print(imie)
 class Kot(zwierze):
     def __init__(self, imie, ruch):
-        super(Kot, self).__init__(imie)
+        super().__init__(imie)
         self.ruch = ruch
 
 
@@ -27,11 +27,10 @@ class Kot(zwierze):
             self.ruch[1] += 5
 
 
-class Mysz:
+class Mysz(zwierze):
     def __init__(self, imie, ruch):
-        self.imie = imie
+        super().__init__(imie)
         self.ruch = ruch
-        print(imie)
 
     def rusz(self):
         self.ruch[0] += random.randint(-1, 1)
