@@ -2,12 +2,15 @@ import random
 import matplotlib
 import matplotlib.pyplot as plt
 
-
-class Kot:
-    def __init__(self, imie, ruch):
+class zwierze:
+    def __init__(self,imie):
         self.imie = imie
-        self.ruch = ruch
         print(imie)
+class Kot(zwierze):
+    def __init__(self, imie, ruch):
+        super(Kot, self).__init__(imie)
+        self.ruch = ruch
+
 
     def rusz(self):
         self.ruch[0] += random.randint(-5, 5)
