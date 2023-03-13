@@ -18,8 +18,14 @@ except FileNotFoundError:
     Kupione = []
     with open('Kupione.json','w') as file:
         json.dump(Kupione, file)
-#class zadanie:
-#    zmienna = i
+
+
+class Zadanie:
+    def __init__(self, index):
+        self.index = index
+
+    def get_index(self):
+        return self.index
 
 def program():
     okno1 = tk.Tk()
@@ -54,13 +60,13 @@ def wyswietlListe():
         b+=1
 
     for i in doKupienia:
-        tmp = i
-        tk.Button(okno2, text='Kupione',command=lambda: dodajDoKupione(tmp)).grid(row=c,column=1)
+        zadanie = Zadanie(i)
+        tk.Button(okno2, text='Kupione',command=lambda: dodajDoKupione(zadanie)).grid(row=c,column=1)
         c+=1
         a+=1
 
 
 def dodajDoKupione(x):
-    print(x)
+    print(x.get_index())
 
 program()
