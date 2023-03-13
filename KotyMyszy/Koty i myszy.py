@@ -3,19 +3,13 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 
-pozycjak1 = [6, 6]
-pozycjak2 = [90, 100]
-pozycjaMyszy1 = [5, 5]
-pozycjaMyszy2 = [50, 50]
-
-class zwierze:
-    def __init__(self, imie):
+class Kot:
+    def __init__(self, imie, ruch):
         self.imie = imie
+        self.ruch = ruch
         print(imie)
 
-    def ruchKota(self, ruch):
-        self.ruch = ruch
-
+    def rusz(self):
         self.ruch[0] += random.randint(-5, 5)
         self.ruch[1] += random.randint(-5, 5)
 
@@ -29,35 +23,42 @@ class zwierze:
         if self.ruch[1] <= 0:
             self.ruch[1] += 5
 
-    def ruchMyszy(self, ruchM):
-        self.ruchM = ruchM
 
-        self.ruchM[0] += random.randint(-1, 1)
-        self.ruchM[1] += random.randint(-1, 1)
+class Mysz:
+    def __init__(self, imie, ruch):
+        self.imie = imie
+        self.ruch = ruch
+        print(imie)
 
+    def rusz(self):
+        self.ruch[0] += random.randint(-1, 1)
+        self.ruch[1] += random.randint(-1, 1)
 
-        if self.ruchM[0] <= 0 :
-            self.ruchM[0] += 1
-        if self.ruchM[1] <=0:
-            self.ruchM[1] += 1
-        if self.ruchM[0] >= 100:
-            self.ruchM[0] -= 1
-        if self.ruchM[1] >= 100:
-            self.ruchM[1] -= 1
+        if self.ruch[0] <= 0 :
+            self.ruch[0] += 1
+        if self.ruch[1] <=0:
+            self.ruch[1] += 1
+        if self.ruch[0] >= 100:
+            self.ruch[0] -= 1
+        if self.ruch[1] >= 100:
+            self.ruch[1] -= 1
+
+    def wroc_na_poczatek(self):
+        self.ruch = [5, 5]
 
 def dodanie_do_wspolrzednych(ktory):
     if ktory == kot1:
-        lxk1.append(pozycjak1[0])
-        lyk1.append(pozycjak1[1])
+        lxk1.append(kot1.ruch[0])
+        lyk1.append(kot1.ruch[1])
     elif ktory == kot2:
-        lxk2.append(pozycjak2[0])
-        lyk2.append(pozycjak2[1])
+        lxk2.append(kot2.ruch[0])
+        lyk2.append(kot2.ruch[1])
     elif ktory == mysz1:
-        lxm1.append(pozycjaMyszy1[0])
-        lym1.append(pozycjaMyszy1[1])
+        lxm1.append(mysz1.ruch[0])
+        lym1.append(mysz1.ruch[1])
     elif ktory == mysz2:
-        lxm2.append(pozycjaMyszy2[0])
-        lym2.append(pozycjaMyszy2[1])
+        lxm2.append(mysz2.ruch[0])
+        lym2.append(mysz2.ruch[1])
     else:
         print('Błąd')
 
@@ -73,10 +74,11 @@ def wykres_krokow():
     plt.show()
 
 
-kot1 = zwierze('Przeciętniak1')
-kot2 = zwierze('Przeciętniak2')
-mysz1 = zwierze('Mysz1')
-mysz2 = zwierze('Mysz2')
+kot1 = Kot('Przeciętniak1', [6, 6])
+kot2 = Kot('Przeciętniak2', [90, 100])
+
+mysz1 = Mysz('Mysz1', [5, 5])
+mysz2 = Mysz('Mysz2', [50, 50])
 
 lxk1 = []
 lyk1 = []
@@ -90,25 +92,25 @@ kot1_spotkanie = 0
 o = 0
 while o <= 500:
     o += 1
-    kot1.ruchKota(pozycjak1)
+    kot1.rusz()
     dodanie_do_wspolrzednych(kot1)
-    kot2.ruchKota(pozycjak2)
+    kot2.rusz()
     dodanie_do_wspolrzednych(kot2)
-    mysz1.ruchMyszy(pozycjaMyszy1)
+    mysz1.rusz()
     dodanie_do_wspolrzednych(mysz1)
-    mysz2.ruchMyszy(pozycjaMyszy2)
+    mysz2.rusz()
     dodanie_do_wspolrzednych(mysz2)
-    if pozycjak1 == pozycjaMyszy1:
+    if kot1.ruch == mysz1.ruch:
         print('spotkanie kota 1 z myszą 1')
-        pozycjaMyszy1 = [5, 5]
-    elif pozycjak1 == pozycjaMyszy2:
-        pozycjaMyszy2 = [50, 50]
+        mysz1.wroc_na_poczatek()
+    elif kot1.ruch == mysz2.ruch:
         print('spotkanie kota 1 z myszą 2')
-    elif pozycjak2 == pozycjaMyszy1:
-        pozycjaMyszy1 = [5, 5]
+        mysz2.wroc_na_poczatek()
+    elif kot2.ruch == mysz1.ruch:
+        mysz1.wroc_na_poczatek()
         print('spotkanie kota 2 z myszą 1')
-    elif pozycjak2 == pozycjaMyszy2:
-        pozycjaMyszy2 = [50, 50]
+    elif kot2.ruch == mysz2.ruch:
+        mysz2.wroc_na_poczatek()
         print('spotkanie kota 2 z myszą 2')
 wykres_krokow()
 
