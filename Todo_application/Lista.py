@@ -25,8 +25,8 @@ class Zadanie:
     def __init__(self, index):
         self.index = index
 
-    def get_index(self):
-        return self.index
+
+
 
 def program():
     okno1 = tk.Tk()
@@ -67,7 +67,7 @@ def wyswietlListe():
         a+=1
 
 
-def dodajDoKupione(x):
-    print(x.get_index())
+def dodajDoKupione(zadanie):
+    print(zadanie.index)
 
 program()
