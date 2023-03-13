@@ -92,7 +92,7 @@ lxm2 = []
 lym2 = []
 kot1_spotkanie = 0
 o = 0
-while o <= 500:
+while o <= 1000:
     o += 1
     kot1.rusz()
     dodanie_do_wspolrzednych(kot1)
@@ -103,17 +103,17 @@ while o <= 500:
     mysz2.rusz()
     dodanie_do_wspolrzednych(mysz2)
     if kot1.ruch == mysz1.ruch:
-        print('spotkanie kota 1 z myszą 1')
+        print('spotkanie',kot1.imie,' z',mysz1.imie)
         mysz1.wroc_na_poczatek()
     elif kot1.ruch == mysz2.ruch:
-        print('spotkanie kota 1 z myszą 2')
+        print('spotkanie ',kot1.imie,' z',mysz2.imie)
         mysz2.wroc_na_poczatek()
     elif kot2.ruch == mysz1.ruch:
         mysz1.wroc_na_poczatek()
-        print('spotkanie kota 2 z myszą 1')
+        print('spotkanie ',kot2.imie,' z ',mysz1.imie)
     elif kot2.ruch == mysz2.ruch:
         mysz2.wroc_na_poczatek()
-        print('spotkanie kota 2 z myszą 2')
+        print('spotkanie',kot2.imie,' z ',mysz2.imie)
 wykres_krokow()
 
 
