@@ -1,5 +1,6 @@
 import tkinter as tk
 import json
+from functools import partial
 
 try:
     with open('doKupienia.json','r') as file:
@@ -61,7 +62,7 @@ def wyswietlListe():
 
     for i in doKupienia:
         zadanie = Zadanie(i)
-        tk.Button(okno2, text='Kupione',command=lambda: dodajDoKupione(zadanie)).grid(row=c,column=1)
+        tk.Button(okno2, text='Kupione',command=partial(dodajDoKupione, zadanie)).grid(row=c,column=1)
         c+=1
         a+=1
 
