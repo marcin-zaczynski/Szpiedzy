@@ -85,6 +85,7 @@ kot2 = Kot('Przeciętniak2', [90, 100])
 kot3 = Kot('Tip Top', [1, 1])
 mysz1 = Mysz('Mysz1', [5, 5])
 mysz2 = Mysz('Mysz2', [50, 50])
+tablicaMyszy = [mysz1, mysz2]
 
 lxk1 = []
 lyk1 = []
@@ -106,10 +107,14 @@ while o <= 1000:
     dodanie_do_wspolrzednych(kot2)
     kot3.rusz()
     dodanie_do_wspolrzednych(kot3)
-    mysz1.rusz()
-    dodanie_do_wspolrzednych(mysz1)
-    mysz2.rusz()
-    dodanie_do_wspolrzednych(mysz2)
+    #mysz1.rusz()
+    #dodanie_do_wspolrzednych(mysz1)
+    #mysz2.rusz()
+    #dodanie_do_wspolrzednych(mysz2)
+    for i in tablicaMyszy:
+        i.rusz()
+        dodanie_do_wspolrzednych(i)
+
     if kot1.ruch == mysz1.ruch:
         print('spotkanie',kot1.imie,' z',mysz1.imie)
         mysz1.wroc_na_poczatek()
