@@ -64,9 +64,6 @@ def dodanie_do_wspolrzednych(ktory):
     elif ktory == mysz2:
         lxm2.append(mysz2.ruch[0])
         lym2.append(mysz2.ruch[1])
-    elif ktory == mysz3:
-        lxm3.append(mysz3.ruch[0])
-        lym3.append(mysz3.ruch[1])
     else:
         print('Błąd')
 
@@ -76,7 +73,6 @@ def wykres_krokow():
     plt.plot(lxm1, lym1, ":.", color="yellow", linewidth=1, alpha=1, label='mysz')
     plt.plot(lxm2, lym2, ":.", color="purple", linewidth=1, alpha=1, label='mysz')
     plt.plot(lxk3,lyk3, ':.',color='pink',linewidth=1,alpha=1, label='kot')
-    plt.plot(lxm3, lym3, ":.", color="red", linewidth=1, alpha=1, label='mysz')
     plt.xlabel("lx")
     plt.ylabel("ly")
     plt.title("Ruchy kotów i myszy")
@@ -89,8 +85,7 @@ kot2 = Kot('Przeciętniak2', [90, 100])
 kot3 = Kot('Tip Top', [1, 1])
 mysz1 = Mysz('Mysz1', [5, 5])
 mysz2 = Mysz('Mysz2', [50, 50])
-mysz3 = Mysz('Jerry',[90,90])
-tablicaMyszy = [mysz1, mysz2,mysz3]
+tablicaMyszy = [mysz1, mysz2]
 
 lxk1 = []
 lyk1 = []
@@ -102,8 +97,6 @@ lxm1 = []
 lym1 = []
 lxm2 = []
 lym2 = []
-lxm3 = []
-lym3 = []
 kot1_spotkanie = 0
 o = 0
 while o <= 1000:
@@ -140,15 +133,6 @@ while o <= 1000:
     elif kot3.ruch == mysz2.ruch:
         mysz2.wroc_na_poczatek()
         print('spotkanie',kot3.imie,' z ',mysz2.imie)
-    elif kot1.ruch == mysz3.ruch:
-        print('spotkanie ',kot1.imie,' z',mysz3.imie)
-        mysz3.wroc_na_poczatek()
-    elif kot2.ruch == mysz3.ruch:
-        print('spotkanie ', kot2.imie, ' z', mysz3.imie)
-        mysz3.wroc_na_poczatek()
-    elif kot3.ruch == mysz3.ruch:
-        print('spotkanie ', kot3.imie, ' z', mysz3.imie)
-        mysz3.wroc_na_poczatek()
 wykres_krokow()
 
 
