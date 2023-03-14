@@ -107,45 +107,21 @@ while o <= 1000:
     dodanie_do_wspolrzednych(kot2)
     kot3.rusz()
     dodanie_do_wspolrzednych(kot3)
-    #mysz1.rusz()
-    #dodanie_do_wspolrzednych(mysz1)
-    #mysz2.rusz()
-    #dodanie_do_wspolrzednych(mysz2)
+
     for i in tablicaMyszy:
         dodanie_do_wspolrzednych(i)
         i.rusz()
 
-    #if kot1.ruch == mysz1.ruch:
-    #    print('spotkanie',kot1.imie,' z',mysz1.imie)
-    #    mysz1.wroc_na_poczatek()
-    #elif kot1.ruch == mysz2.ruch:
-    #    print('spotkanie ',kot1.imie,' z',mysz2.imie)
-    #    mysz2.wroc_na_poczatek()
-    #elif kot2.ruch == mysz1.ruch:
-    #    mysz1.wroc_na_poczatek()
-    #    print('spotkanie ',kot2.imie,' z ',mysz1.imie)
-    #elif kot2.ruch == mysz2.ruch:
-    #    mysz2.wroc_na_poczatek()
-    #    print('spotkanie',kot2.imie,' z ',mysz2.imie)
-    #elif kot3.ruch == mysz1.ruch:
-    #    mysz1.wroc_na_poczatek()
-    #    print('spotkanie ',kot3.imie,' z ',mysz1.imie)
-    #elif kot3.ruch == mysz2.ruch:
-    #    mysz2.wroc_na_poczatek()
-    #    print('spotkanie',kot3.imie,' z ',mysz2.imie)
 
     for i in tablicaMyszy:
         if i.ruch == kot1.ruch:
+            i.wroc_na_poczatek()
             print('spotkanie', kot1.imie, ' z ', i.imie)
         if i.ruch == kot2.ruch:
+            i.wroc_na_poczatek()
             print('spotkanie', kot2.imie, ' z ', i.imie)
         if i.ruch == kot3.ruch:
+            i.wroc_na_poczatek()
             print('spotkanie', kot3.imie, ' z ', i.imie)
 
-
-
-
-
 wykres_krokow()
-
-
