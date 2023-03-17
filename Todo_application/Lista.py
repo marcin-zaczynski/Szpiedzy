@@ -2,24 +2,6 @@ import tkinter as tk
 import json
 from functools import partial
 
-try:
-    with open('doKupienia.json','r') as file:
-        doKupienia = json.load(file)
-
-except FileNotFoundError:
-    doKupienia = []
-    with open('doKupienia.json', 'w') as file:
-        json.dump(doKupienia, file)
-
-try:
-    with open('kupione.json','r') as file:
-        kupione = json.load(file)
-
-except FileNotFoundError:
-    kupione = []
-    with open('Kupione.json','w') as file:
-        json.dump(kupione, file)
-
 def zapisz_do_kupienia():
     with open('doKupienia.json', 'w') as file:
         json.dump(doKupienia, file)
@@ -27,6 +9,22 @@ def zapisz_do_kupienia():
 def zapisz_kupione():
     with open('kupione.json','w') as file:
         json.dump(kupione, file)
+
+try:
+    with open('doKupienia.json','r') as file:
+        doKupienia = json.load(file)
+
+except FileNotFoundError:
+    doKupienia = []
+    zapisz_do_kupienia()
+
+try:
+    with open('kupione.json','r') as file:
+        kupione = json.load(file)
+
+except FileNotFoundError:
+    kupione = []
+    zapisz_kupione()
 
 def program():
     okno1 = tk.Tk()
@@ -36,9 +34,9 @@ def program():
 
     dodac = tk.StringVar(okno1)
     tk.Entry(okno1, textvariable=dodac).grid(row=1, column=1) # tabelka do wpisania
-    tk.Button(okno1, text="Dodaj do listy", command=lambda: dodanieDoListy(dodac)).grid(row=1, column=2) #przycisk
-    tk.Button(okno1, text='Wyświetl liste zakupów', command=wyswietlListe).grid(row=2,column=2)
-    tk.Button(okno1, text='Wyświetl kupione ', bg='red', command=lista_kupione).grid(row=3, column=2)
+    tk.Button(okno1, text="        Dodaj do listy        ", command=lambda: dodanieDoListy(dodac)).grid(row=1, column=2) #przycisk
+    tk.Button(okno1, bg='pink', text='Wyświetl liste zakupów', command=wyswietlListe).grid(row=2,column=2)
+    tk.Button(okno1, text='    Wyświetl kupione      ', bg='red', command=lista_kupione).grid(row=3, column=2)
 
     okno1.mainloop()
 
@@ -76,9 +74,9 @@ def wyswietlListe():
         c+=1
         a+=1
 
-def dodajDoKupione(zadanie):
-    kupione.append(zadanie)
-    doKupienia.remove(zadanie)
+def dodajDoKupione(i):
+    kupione.append(i)
+    doKupienia.remove(i)
     zapisz_kupione()
     zapisz_do_kupienia()
 
