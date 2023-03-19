@@ -55,6 +55,11 @@ def lista_kupione():
     for i in kupione:
         tk.Label(okno3, bg='red', foreground='yellow', text=i).grid(row=b, column=0)
         b += 1
+    tk.Button(okno3, text="Wyczyść listę", command= wyczysc_liste).grid(row=100, column=2)
+
+def wyczysc_liste():
+    kupione.clear()
+    zapisz_kupione()
 
 def wyswietlListe():
     okno2 = tk.Tk()
