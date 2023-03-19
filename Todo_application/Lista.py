@@ -32,34 +32,49 @@ def program():
     okno1.geometry('280x280')
     okno1.config(bg='green')
 
-    dodac = tk.StringVar(okno1)
-    tk.Entry(okno1, textvariable=dodac).grid(row=1, column=1) # tabelka do wpisania
-    tk.Button(okno1, text="        Dodaj do listy        ", command=lambda: dodanieDoListy(dodac)).grid(row=1, column=2) #przycisk
+    dodawane = tk.StringVar(okno1)
+    tk.Entry(okno1, textvariable=dodawane).grid(row=1, column=1) # tabelka do wpisania
+    tk.Button(okno1, text="        Dodaj do listy        ", command=lambda: dodanieDoListy(dodawane,okno1)).grid(row=1, column=2) #przycisk
     tk.Button(okno1, bg='pink', text='Wyświetl liste zakupów', command=wyswietlListe).grid(row=2,column=2)
-    tk.Button(okno1, text='    Wyświetl kupione      ', bg='red', command=lista_kupione).grid(row=3, column=2)
-
+    tk.Button(okno1, text='    Wyświetl kupione      ', bg='red', command=lambda :zakup.lista()).grid(row=3, column=2)
+    zakup = Lista_kupione('okno3','przyciski','czyszcik','tabele')
     okno1.mainloop()
 
-def dodanieDoListy(dodanwane):
-    dodane = dodanwane.get()
+def dodanieDoListy(dodawane,okno1):
+    okno1.destroy()
+    dodane = dodawane.get()
     doKupienia.append(dodane)
     zapisz_do_kupienia()
+    program()
 
-def lista_kupione():
-    okno3 = tk.Tk()
-    okno3.geometry('200x300')
-    okno3.config(bg='red')
-    okno3.title('Kupione')
-    tk.Label(okno3, text='Kupione').grid(row=0, column=0)
-    b = 1
-    for i in kupione:
-        tk.Label(okno3, bg='red', foreground='yellow', text=i).grid(row=b, column=0)
-        b += 1
-    tk.Button(okno3, text="Wyczyść listę", command= wyczysc_liste).grid(row=100, column=2)
+class Lista_kupione:
 
-def wyczysc_liste():
-    kupione.clear()
-    zapisz_kupione()
+    def __init__(self,okno,przycisk,czyszczenie,tabelka):
+        self.okno = okno
+        self.przycisk = przycisk
+        self.czyszczenie = czyszczenie
+        self.tabelka = tabelka
+
+    def lista(self):
+        self.okno = tk.Tk()
+        self.okno.geometry('200x300')
+        self.okno.config(bg='red')
+        self.okno.title('Kupione')
+
+        nazwa = tk.Label(self.okno, text='Kupione').grid(row=0, column=0)
+        b = 1
+        for i in kupione:
+            self.tabelka = tk.Label(self.okno, bg='red', foreground='yellow', text=i).grid(row=b, column=0)
+            b += 1
+        self.przycisk = tk.Button(self.okno, text="Wyczyść listę", command=lambda :zakup.wyczysc(self.okno)).grid(row=100, column=2)
+        self.okno.mainloop()
+        self.okno.destroy()
+
+    def wyczysc(self,okno):
+        okno.destroy()
+        kupione.clear()
+        zapisz_kupione()
+        zakup.lista()
 
 def wyswietlListe():
     okno2 = tk.Tk()
@@ -84,5 +99,5 @@ def dodajDoKupione(i):
     doKupienia.remove(i)
     zapisz_kupione()
     zapisz_do_kupienia()
-
+zakup = Lista_kupione('okienko','przyciski','czyszczenia','tabelki')
 program()
