@@ -47,38 +47,42 @@ class Lista_kupione:
         zapisz_kupione()
         self.okno.destroy()
 
-def wyswietlListe():
-    okno2 = Tk()
-    okno2.geometry('200x300')
-    okno2.config(bg='pink')
-    okno2.title('Lista zakupów')
-    nazwa = Label(okno2, text='Do kupienia')
-    nazwa.grid(padx= 0,pady=1)
-    b = 1
-    c= 1
-    a = 0
-    for towar in doKupienia:
-        tabelka_towar = Label(okno2,bg='pink', foreground='blue', text=towar)
-        tabelka_towar.grid(column=0,row=b)
-        b+=1
+class wyswietlListe:
+    def __init__(self):
+        self.okno2 = Tk()
+        self.okno2.geometry('200x300')
+        self.okno2.config(bg='pink')
+        self.okno2.title('Lista zakupów')
+        self.nazwa = Label(self.okno2, text='Do kupienia')
+        self.nazwa.grid(padx= 0,pady=1)
+        lista.wyswietl(self)
+    def wyswietl(self):
+        b = 1
+        c= 1
+        a = 0
+        for towar in doKupienia:
+            self.tabelka_towar = Label(self.okno2,bg='pink', foreground='blue', text=towar)
+            self.tabelka_towar.grid(column=0,row=b)
+            b+=1
 
-    for produkt in doKupienia:
-        przycisk_kupione = Button(okno2, text='Kupione',command=partial(dodajDoKupione, produkt))
-        przycisk_kupione.grid(column=1,row=c)
-        c+=1
-        a+=1
+        for produkt in doKupienia:
+            self.przycisk_kupione = Button(self.okno2, text='Kupione',command=partial(lista.dodajDoKupione, produkt))
+            self.przycisk_kupione.grid(column=1,row=c)
+            c+=1
+            a+=1
+
+    def dodajDoKupione(produkt):
+        kupione.append(produkt)
+        doKupienia.remove(produkt)
+        zapisz_kupione()
+        zapisz_do_kupienia()
+
+lista = wyswietlListe
 def dodanieDoListy(dodawane,okno1):
     dodane = dodawane.get()
     doKupienia.append(dodane)
     zapisz_do_kupienia()
     wpisywanie.delete(0, 'end')
-
-def dodajDoKupione(produkt):
-    kupione.append(produkt)
-    doKupienia.remove(produkt)
-    zapisz_kupione()
-    zapisz_do_kupienia()
-
 
 okno1 = Tk()
 okno1.title('Lista zakupów', )
