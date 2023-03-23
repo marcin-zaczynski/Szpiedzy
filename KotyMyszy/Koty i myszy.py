@@ -58,10 +58,10 @@ class Mysz(zwierze):
 
 def wykres_krokow():
 
-    for i in tablicaKotow:
-        plt.plot(i.x, i.y, ":.", color=i.kolor, linewidth=1, alpha=1, label='kot')
-    for i in tablicaMyszy:
-        plt.plot(i.x, i.y, ":.", color=i.kolor, linewidth=1, alpha=1, label='mysz')
+    for kot in tablicaKotow:
+        plt.plot(kot.x, kot.y, ":.", color=kot.kolor, linewidth=1, alpha=1, label='kot')
+    for mysz in tablicaMyszy:
+        plt.plot(mysz.x, mysz.y, ":.", color=mysz.kolor, linewidth=1, alpha=1, label='mysz')
     plt.xlabel("lx")
     plt.ylabel("ly")
     plt.title("Ruchy kotów i myszy")
@@ -69,20 +69,20 @@ def wykres_krokow():
     plt.show()
 
 tablicaKotow = [Kot('Przeciętniak1', [6, 6],'blue'), Kot('Przeciętniak2', [90, 100],'green'), Kot('Tip Top', [1, 1],'yellow')]
-tablicaMyszy = [Mysz('Mysz1', [5, 5], 'purple' ),Mysz('Mysz2', [50, 50], 'pink')]
+tablicaMyszy = [Mysz('Mysz1', [5, 5], 'purple' ),Mysz('Mysz2', [50, 50], 'pink'), Mysz('Jery',[90, 90], 'orange')]
 
 o = 0
 while o <= 1000:
     o += 1
-    for i in tablicaKotow:
-        i.rusz()
-    for i in tablicaMyszy:
-        i.rusz()
+    for kot in tablicaKotow:
+        kot.rusz()
+    for mysz in tablicaMyszy:
+        mysz.rusz()
 
-    for i in tablicaKotow:
-        for a in tablicaMyszy:
-            if i.ruch == a.ruch:
-                print('spotkanie', i.imie, 'z', a.imie)
-                a.wroc_na_poczatek()
+    for kot in tablicaKotow:
+        for mysz in tablicaMyszy:
+            if kot.ruch == mysz.ruch:
+                print('spotkanie', kot.imie, 'z', mysz.imie)
+                mysz.wroc_na_poczatek()
 
 wykres_krokow()
