@@ -14,24 +14,23 @@ class Kot(zwierze):
         self.ruch = ruch
         self.historiax = []
         self.historiay = []
-
+        self.punkt_kota = Punkt(ruch[0],ruch[1])
     def rusz(self):
-        self.ruch[0] += random.randint(-5, 5)
-        self.ruch[1] += random.randint(-5, 5)
+        self.punkt_kota.x += random.randint(-5, 5)
+        self.punkt_kota.y += random.randint(-5, 5)
 
-        if self.ruch[0] >= 100:
-            self.ruch[0] -= 5
-        if self.ruch[1] >= 100:
-            self.ruch[1] -= 5
+        if self.punkt_kota.x >= 100:
+            self.punkt_kota.x -= 5
+        if self.punkt_kota.y >= 100:
+            self.punkt_kota.y -= 5
 
-        if self.ruch[0] <= 0:
-            self.ruch[0] += 5
-        if self.ruch[1] <= 0:
-            self.ruch[1] += 5
+        if self.punkt_kota.x <= 0:
+            self.punkt_kota.x += 5
+        if self.punkt_kota.y <= 0:
+            self.punkt_kota.y += 5
 
-        punkt_kota = Punkt(self.ruch[0],self.ruch[1])
-        self.historiax.append(punkt_kota.x)
-        self.historiay.append(punkt_kota.y)
+        self.historiax.append(self.punkt_kota.x)
+        self.historiay.append(self.punkt_kota.y)
 
 class Mysz(zwierze):
     def __init__(self, imie, ruch, kolor):
@@ -39,23 +38,23 @@ class Mysz(zwierze):
         self.ruch = ruch
         self.historiax = []
         self.historiay = []
+        self.punkt_myszy = Punkt(self.ruch[0],self.ruch[1])
 
     def rusz(self):
-        self.ruch[0] += random.randint(-1, 1)
-        self.ruch[1] += random.randint(-1, 1)
+        self.punkt_myszy.x += random.randint(-1, 1)
+        self.punkt_myszy.y += random.randint(-1, 1)
 
-        if self.ruch[0] <= 0 :
-            self.ruch[0] += 1
-        if self.ruch[1] <=0:
-            self.ruch[1] += 1
-        if self.ruch[0] >= 100:
-            self.ruch[0] -= 1
-        if self.ruch[1] >= 100:
-            self.ruch[1] -= 1
+        if self.punkt_myszy.x <= 0 :
+            self.punkt_myszy.x += 1
+        if self.punkt_myszy.y <=0:
+            self.punkt_myszy.y += 1
+        if self.punkt_myszy.x >= 100:
+            self.punkt_myszy.x -= 1
+        if self.punkt_myszy.y >= 100:
+            self.punkt_myszy.y -= 1
 
-        punkt_myszy = Punkt(self.ruch[0],self.ruch[1])
-        self.historiax.append(punkt_myszy.x)
-        self.historiay.append(punkt_myszy.y)
+        self.historiax.append(self.punkt_myszy.x)
+        self.historiay.append(self.punkt_myszy.y)
 
     def wroc_na_poczatek(self):
         self.ruch = [5, 5]
