@@ -12,8 +12,8 @@ class Kot(zwierze):
     def __init__(self, imie, ruch, kolor):
         super().__init__(imie,kolor)
         self.ruch = ruch
-        self.listax = []
-        self.listay = []
+        self.historiax = []
+        self.historiay = []
 
     def rusz(self):
         self.ruch[0] += random.randint(-5, 5)
@@ -29,15 +29,17 @@ class Kot(zwierze):
         if self.ruch[1] <= 0:
             self.ruch[1] += 5
 
-        self.listax.append(self.ruch[0])
-        self.listay.append(self.ruch[1])
+        punkt_kota = Punkt(self.ruch[0],self.ruch[1])
+        self.historiax.append(punkt_kota.x)
+        self.historiay.append(punkt_kota.y)
 
 class Mysz(zwierze):
     def __init__(self, imie, ruch, kolor):
         super().__init__(imie,kolor)
         self.ruch = ruch
-        self.listax = []
-        self.listay = []
+        self.historiax = []
+        self.historiay = []
+
     def rusz(self):
         self.ruch[0] += random.randint(-1, 1)
         self.ruch[1] += random.randint(-1, 1)
@@ -50,18 +52,24 @@ class Mysz(zwierze):
             self.ruch[0] -= 1
         if self.ruch[1] >= 100:
             self.ruch[1] -= 1
-        self.listax.append(self.ruch[0])
-        self.listay.append(self.ruch[1])
+
+        punkt_myszy = Punkt(self.ruch[0],self.ruch[1])
+        self.historiax.append(punkt_myszy.x)
+        self.historiay.append(punkt_myszy.y)
 
     def wroc_na_poczatek(self):
         self.ruch = [5, 5]
 
-def wykres_krokow():
+class Punkt:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
+def wykres_krokow():
     for kot in tablicaKotow:
-        plt.plot(kot.listax, kot.listay, ":.", color=kot.kolor, linewidth=1, alpha=1, label='kot')
+        plt.plot(kot.historiax, kot.historiay, ":.", color=kot.kolor, linewidth=1, alpha=1, label='kot')
     for mysz in tablicaMyszy:
-        plt.plot(mysz.listax, mysz.listay, ":.", color=mysz.kolor, linewidth=1, alpha=1, label='mysz')
+        plt.plot(mysz.historiax, mysz.historiay, ":.", color=mysz.kolor, linewidth=1, alpha=1, label='mysz')
     plt.xlabel("lx")
     plt.ylabel("ly")
     plt.title("Ruchy kotów i myszy")
