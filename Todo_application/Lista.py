@@ -29,47 +29,41 @@ except FileNotFoundError:
 class Lista_kupione:
 
     def __init__(self):
-        self.okno = Tk()
-        self.okno.geometry('200x300')
-        self.okno.config(bg='red')
-        self.okno.title('Kupione')
-        nazwa = Label(self.okno, text='Kupione')
+        self.okno_kupione = Tk()
+        self.okno_kupione.geometry('200x300')
+        self.okno_kupione.config(bg='red')
+        self.okno_kupione.title('Kupione')
+        nazwa = Label(self.okno_kupione, text='Kupione')
         nazwa.grid(column=0,row=0)
         b = 1
         for produkt in kupione:
-            Label(self.okno, bg='red', foreground='yellow', text= produkt).grid(row=b, column=0)
+            Label(self.okno_kupione, bg='red', foreground='yellow', text= produkt).grid(row=b, column=0)
             b += 1
-        Button(self.okno, text="Wyczyść listę", command=lambda :Lista_kupione.wyczysc(self)).grid(row=100, column=2)
-        self.okno.mainloop()
+        Button(self.okno_kupione, text="Wyczyść listę", command=lambda :Lista_kupione.wyczysc(self)).grid(row=100, column=2)
+        self.okno_kupione.mainloop()
 
     def wyczysc(self):
         kupione.clear()
         zapisz_kupione()
-        self.okno.destroy()
+        self.okno_kupione.destroy()
 
 class wyswietlListe:
     def __init__(self):
-        self.okno2 = Tk()
-        self.okno2.geometry('200x300')
-        self.okno2.config(bg='pink')
-        self.okno2.title('Lista zakupów')
-        self.nazwa = Label(self.okno2, text='Do kupienia')
+        self.okno_do_kupienia = Tk()
+        self.okno_do_kupienia.geometry('200x300')
+        self.okno_do_kupienia.config(bg='pink')
+        self.okno_do_kupienia.title('Lista zakupów')
+        self.nazwa = Label(self.okno_do_kupienia, text='Do kupienia')
         self.nazwa.grid(padx= 0,pady=1)
         lista.wyswietl(self)
     def wyswietl(self):
-        b = 1
-        c= 1
-        a = 0
+        wiersz = 1
         for towar in doKupienia:
-            self.tabelka_towar = Label(self.okno2,bg='pink', foreground='blue', text=towar)
-            self.tabelka_towar.grid(column=0,row=b)
-            b+=1
-
-        for produkt in doKupienia:
-            self.przycisk_kupione = Button(self.okno2, text='Kupione',command=partial(lista.dodajDoKupione, produkt))
-            self.przycisk_kupione.grid(column=1,row=c)
-            c+=1
-            a+=1
+            self.tabelka_towar = Label(self.okno_do_kupienia,bg='pink', foreground='blue', text=towar)
+            self.tabelka_towar.grid(column=0,row=wiersz)
+            self.przycisk_kupione = Button(self.okno_do_kupienia, text='Kupione',command=partial(lista.dodajDoKupione, towar))
+            self.przycisk_kupione.grid(column=1, row=wiersz)
+            wiersz+=1
 
     def dodajDoKupione(produkt):
         kupione.append(produkt)
@@ -78,24 +72,24 @@ class wyswietlListe:
         zapisz_do_kupienia()
 
 lista = wyswietlListe
-def dodanieDoListy(dodawane,okno1):
+def dodanieDoListy(dodawane):
     dodane = dodawane.get()
     doKupienia.append(dodane)
     zapisz_do_kupienia()
     wpisywanie.delete(0, 'end')
 
-okno1 = Tk()
-okno1.title('Lista zakupów', )
-okno1.geometry('280x280')
-okno1.config(bg='green')
+okno_glowne = Tk()
+okno_glowne.title('Lista zakupów', )
+okno_glowne.geometry('280x280')
+okno_glowne.config(bg='green')
 
-dodawane = StringVar(okno1)
-wpisywanie = Entry(okno1, textvariable=dodawane, font=('Arial',12))# tabelka do wpisania
+dodawane = StringVar(okno_glowne)
+wpisywanie = Entry(okno_glowne, textvariable=dodawane, font=('Arial',12))
 wpisywanie.pack(pady=30, )
-przycisk1=Button(okno1, text="        Dodaj do listy        ", command=lambda: dodanieDoListy(dodawane,okno1)) #przycisk
+przycisk1=Button(okno_glowne, text="        Dodaj do listy        ", command=lambda: dodanieDoListy(dodawane))
 przycisk1.pack( pady=10)
-przycisk2 =Button(okno1, bg='pink', text='Wyświetl liste zakupów', command= lambda: wyswietlListe())
+przycisk2 =Button(okno_glowne, bg='pink', text='Wyświetl liste zakupów', command= lambda: wyswietlListe())
 przycisk2.pack(pady=10)
-przycisk3 =Button(okno1, text='    Wyświetl kupione      ', bg='red', command=lambda :Lista_kupione())
+przycisk3 =Button(okno_glowne, text='    Wyświetl kupione      ', bg='red', command=lambda :Lista_kupione())
 przycisk3.pack(pady=10)
-okno1.mainloop()
+okno_glowne.mainloop()
