@@ -12,8 +12,8 @@ class Kot(zwierze):
     def __init__(self, imie, ruch, kolor):
         super().__init__(imie,kolor)
         self.ruch = ruch
-        self.x = []
-        self.y = []
+        self.listax = []
+        self.listay = []
 
     def rusz(self):
         self.ruch[0] += random.randint(-5, 5)
@@ -29,15 +29,15 @@ class Kot(zwierze):
         if self.ruch[1] <= 0:
             self.ruch[1] += 5
 
-        self.x.append(self.ruch[0])
-        self.y.append(self.ruch[1])
+        self.listax.append(self.ruch[0])
+        self.listay.append(self.ruch[1])
 
 class Mysz(zwierze):
     def __init__(self, imie, ruch, kolor):
         super().__init__(imie,kolor)
         self.ruch = ruch
-        self.x = []
-        self.y = []
+        self.listax = []
+        self.listay = []
     def rusz(self):
         self.ruch[0] += random.randint(-1, 1)
         self.ruch[1] += random.randint(-1, 1)
@@ -50,8 +50,8 @@ class Mysz(zwierze):
             self.ruch[0] -= 1
         if self.ruch[1] >= 100:
             self.ruch[1] -= 1
-        self.x.append(self.ruch[0])
-        self.y.append(self.ruch[1])
+        self.listax.append(self.ruch[0])
+        self.listay.append(self.ruch[1])
 
     def wroc_na_poczatek(self):
         self.ruch = [5, 5]
@@ -59,9 +59,9 @@ class Mysz(zwierze):
 def wykres_krokow():
 
     for kot in tablicaKotow:
-        plt.plot(kot.x, kot.y, ":.", color=kot.kolor, linewidth=1, alpha=1, label='kot')
+        plt.plot(kot.listax, kot.listay, ":.", color=kot.kolor, linewidth=1, alpha=1, label='kot')
     for mysz in tablicaMyszy:
-        plt.plot(mysz.x, mysz.y, ":.", color=mysz.kolor, linewidth=1, alpha=1, label='mysz')
+        plt.plot(mysz.listax, mysz.listay, ":.", color=mysz.kolor, linewidth=1, alpha=1, label='mysz')
     plt.xlabel("lx")
     plt.ylabel("ly")
     plt.title("Ruchy kotów i myszy")
