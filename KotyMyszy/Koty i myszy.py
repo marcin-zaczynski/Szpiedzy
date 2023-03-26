@@ -1,5 +1,4 @@
 import random
-import matplotlib
 import matplotlib.pyplot as plt
 from tkinter import*
 
@@ -72,20 +71,8 @@ class Punkt:
 
 def wykres_krokow():
     for mysz in tablicaMyszy:
-        punkt_x = []
-        punkt_y = []
-        #for punkt in mysz.historia_myszy:
-        #    punkt_x.append(punkt.x)
-        #    punkt_y.append(punkt.y)
-        #plt.plot(punkt_x,punkt_y, ":.", color=mysz.kolor, linewidth=1, alpha=1, label='mysz')
         plt.plot(mysz.punkt_x, mysz.punkt_y, ":.", color=mysz.kolor, linewidth=1, alpha=1, label='mysz')
     for kot in tablicaKotow:
-        #punkt_x = []
-        #punkt_y = []
-        #for polozenie in kot.historia_kota:
-        #    punkt_x.append(polozenie.x)
-        #    punkt_y.append(polozenie.y)
-        #plt.plot(punkt_x, punkt_y, ":.", color=kot.kolor, linewidth=1, alpha=1, label='kot')
         plt.plot(kot.punkt_x, kot.punkt_y, ":.", color=kot.kolor, linewidth=1, alpha=1, label='kot')
     plt.xlabel("lx")
     plt.ylabel("ly")
@@ -122,4 +109,4 @@ class kroki:
         self.przycisk_krok.grid(row=1, column=0)
         self.okno_przycisku.mainloop()
 
-jeden_krok =kroki()
+jeden_krok = kroki()
